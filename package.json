@@ -1,5 +1,5 @@
 {
-  "name": "file_server",
+  "name": "sfs-express",
   "version": "0.0.1",
   "description": "Express.js implementation of SFS",
   "author": "brokeboiflex",

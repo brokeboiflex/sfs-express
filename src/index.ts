@@ -26,13 +26,18 @@ export default function initFunctions({
     logger,
   });
 
+  const optimisticUrls = new Set();
+
   const getFile = async (req: Request, res: Response) => {
     const fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+    if (optimisticUrls.has(fullUrl)) {
+      return res.status(425);
+    }
     const fileId = urlToId(fullUrl);
     try {
       const { filePath, fileName } = await resolveFilePath(fileId);
       res.setHeader("Content-Disposition", `inline; filename="${fileName}"`);
-      res.status(200).sendFile(filePath);
+      return res.status(200).sendFile(filePath);
     } catch (err) {
       return res.status(404).send();
     }
@@ -44,26 +49,29 @@ export default function initFunctions({
     options: {
       pathParamKey: string;
       fileParamKey: string;
-      optimisticId?: string;
+      optimisticIdKey: string;
     } = {
       pathParamKey: "path",
       fileParamKey: "file",
+      optimisticIdKey: "id",
     }
   ) => {
     if (!req.files) {
       return res.status(400).send("Request doesn't contain any files");
     }
-    const { pathParamKey, fileParamKey } = options;
+    const { pathParamKey, fileParamKey, optimisticIdKey } = options;
+    const file = req.files[fileParamKey];
+    const path = req.body[pathParamKey];
+    const id = req.body[optimisticIdKey];
     try {
       console.log(req.files);
-
-      const file = req.files[fileParamKey];
-      const path = req.body[pathParamKey];
-
-      const fileInfo = await saveFile(file, path, options.optimisticId);
+      id && optimisticUrls.add(idToUrl(id));
+      const fileInfo = await saveFile(file, path, id);
+      fileInfo && optimisticUrls.delete(id);
       return res.status(200).send(fileInfo);
     } catch (err) {
       console.error(err);
+      optimisticUrls.delete(id);
       return res.status(500).send();
     }
   };

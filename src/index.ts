@@ -34,7 +34,7 @@ export default function initFunctions({
       res.setHeader("Content-Disposition", `inline; filename="${fileName}"`);
       res.status(200).sendFile(filePath);
     } catch (err) {
-      throw new Error(err);
+      return res.status(404).send();
     }
   };
 
@@ -63,7 +63,8 @@ export default function initFunctions({
       const fileInfo = await saveFile(file, path, options.optimisticId);
       return res.status(200).send(fileInfo);
     } catch (err) {
-      throw new Error(err);
+      console.error(err);
+      return res.status(500).send();
     }
   };
 
@@ -98,7 +99,8 @@ export default function initFunctions({
       );
       return res.status(200).send(fileInfo);
     } catch (err) {
-      throw new Error(err);
+      console.error(err);
+      return res.status(500).send();
     }
   };
 
@@ -109,7 +111,8 @@ export default function initFunctions({
       await deleteFileById(fileId);
       return res.status(200).send("ok");
     } catch (err) {
-      throw new Error(err);
+      console.error(err);
+      return res.status(500).send();
     }
   };
 

@@ -8,6 +8,7 @@ export default function initFunctions({
   getFileByHash,
   createFile,
   logger,
+  allowDuplicates,
 }: sfsConfig) {
   const {
     resolveFilePath,
@@ -24,6 +25,7 @@ export default function initFunctions({
     getFileByHash,
     createFile,
     logger,
+    allowDuplicates,
   });
 
   const optimisticUrls = new Set();

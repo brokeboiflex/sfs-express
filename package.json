@@ -1,6 +1,6 @@
 {
   "name": "sfs-express",
-  "version": "0.0.2",
+  "version": "0.0.31",
   "description": "Express.js implementation of SFS",
   "author": "brokeboiflex",
   "keywords": [
@@ -26,7 +26,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
-    "sfs-node": "^0.0.40"
+    "sfs-node": "^0.0.41"
   },
   "devDependencies": {
     "@types/express": "^4.0.3",

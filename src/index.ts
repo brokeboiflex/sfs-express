@@ -65,15 +65,22 @@ export default function initFunctions({
     const file = req.files[fileParamKey];
     const path = req.body[pathParamKey];
     const id = req.body[optimisticIdKey];
+    let optimisticUrl;
     try {
-      console.log(req.files);
-      id && optimisticUrls.add(idToUrl(id));
+      if (id) {
+        optimisticUrl = idToUrl(id);
+        optimisticUrls.add(optimisticUrl);
+      }
       const fileInfo = await saveFile(file, path, id);
-      fileInfo && optimisticUrls.delete(id);
+      if (fileInfo && optimisticUrl) {
+        optimisticUrls.delete(optimisticUrl); // Delete the URL, not the id
+      }
       return res.status(200).send(fileInfo);
     } catch (err) {
       console.error(err);
-      optimisticUrls.delete(id);
+      if (optimisticUrl) {
+        optimisticUrls.delete(optimisticUrl); // Delete the URL, not the id
+      }
       return res.status(500).send();
     }
   };

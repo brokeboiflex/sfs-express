@@ -3782,10 +3782,10 @@ sfs-file-type@^1.0.22:
   resolved "https://registry.npmjs.org/sfs-file-type/-/sfs-file-type-1.0.22.tgz"
   integrity sha512-j+RvJv0czzC4PGwm3bgXa3uuvQoqDabl9QNBI75uI7VrUwldBHEisu7QLt8CxZQ1kaP+7T2Kvl9pz9Sf4uR0oQ==
 
-sfs-node@^0.0.41:
-  version "0.0.41"
-  resolved "https://registry.npmjs.org/sfs-node/-/sfs-node-0.0.41.tgz"
-  integrity sha512-WFQ6BVF3PDsmOKcbIAYZToT/SvlZ1MMwv0F4vHwEYu3sFQl+17PtU0TI4M+LYkewZo5f33gmht/rJ2i/66rTig==
+sfs-node@^0.0.415:
+  version "0.0.415"
+  resolved "https://registry.npmjs.org/sfs-node/-/sfs-node-0.0.415.tgz"
+  integrity sha512-+K5OXfWjFN9F9hfntajJbpRvF37YuxU61EokjG8zb4gcdSP8cJt8eDj4gGL7WT5WwFKIeZbLm7tt/XTBfpcrEg==
   dependencies:
     check-disk-space "^3.4.0"
     file-type "^18.7.0"

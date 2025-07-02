@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { sfsConfig, UploadedFile } from "sfs-node";
-export default function initFunctions({ publicFolder, mask, getFileById, getFileByHash, createFile, logger, }: sfsConfig): {
+export default function initFunctions({ publicFolder, mask, getFileById, getFileByHash, createFile, logger, allowDuplicates, }: sfsConfig): {
     getFile: (req: Request, res: Response) => Promise<void | Response<any, Record<string, any>>>;
     idToUrl: (id: import("sfs-node").sfsFileId) => string;
     urlToId: (url: string) => string;

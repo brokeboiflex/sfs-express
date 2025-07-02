@@ -1580,14 +1580,6 @@ core-js-compat@^3.40.0:
   dependencies:
     browserslist "^4.25.0"
 
-cors@^2.8.5:
-  version "2.8.5"
-  resolved "https://registry.npmjs.org/cors/-/cors-2.8.5.tgz"
-  integrity sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
-  dependencies:
-    object-assign "^4"
-    vary "^1"
-
 cosmiconfig@^7.0.0:
   version "7.1.0"
   resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-7.1.0.tgz"
@@ -1821,11 +1813,6 @@ domutils@^2.8.0:
     dom-serializer "^1.0.1"
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
-
-dotenv@^16.0.3:
-  version "16.6.1"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.6.1.tgz"
-  integrity sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==
 
 dunder-proto@^1.0.0, dunder-proto@^1.0.1:
   version "1.0.1"
@@ -2964,7 +2951,7 @@ number-is-nan@^1.0.0:
   resolved "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
 
-object-assign@^4, object-assign@^4.1.0:
+object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
@@ -3795,14 +3782,12 @@ sfs-file-type@^1.0.22:
   resolved "https://registry.npmjs.org/sfs-file-type/-/sfs-file-type-1.0.22.tgz"
   integrity sha512-j+RvJv0czzC4PGwm3bgXa3uuvQoqDabl9QNBI75uI7VrUwldBHEisu7QLt8CxZQ1kaP+7T2Kvl9pz9Sf4uR0oQ==
 
-sfs-node@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/sfs-node/-/sfs-node-0.0.4.tgz"
-  integrity sha512-xkd6qg3Ta80Mncf9RKs1CDMrCDC6l9P6/sTe3yl8/fTArCBdEgO/5iJ2aTb9mSzVeKoeERxZgklbP1bQaD/x9w==
+sfs-node@^0.0.40:
+  version "0.0.40"
+  resolved "https://registry.npmjs.org/sfs-node/-/sfs-node-0.0.40.tgz"
+  integrity sha512-A0exTVtxarH3EBxAN3OBuo4OsSr/wO6+/LNX9iE9urlmZ9V29KMXOHXI7VBiHGxkIsWLlLq+OWBVDPdvRY65xg==
   dependencies:
     check-disk-space "^3.4.0"
-    cors "^2.8.5"
-    dotenv "^16.0.3"
     file-type "^18.7.0"
     sfs-file-type "^1.0.22"
     uuid "^9.0.0"
@@ -4243,7 +4228,7 @@ v8-compile-cache-lib@^3.0.1:
   resolved "https://registry.npmjs.org/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz"
   integrity sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==
 
-vary@^1, vary@~1.1.2:
+vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==

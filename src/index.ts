@@ -41,7 +41,11 @@ export default function initFunctions({
   const uploadFile = async (
     req,
     res: Response,
-    options: { pathParamKey: string; fileParamKey: string } = {
+    options: {
+      pathParamKey: string;
+      fileParamKey: string;
+      optimisticId?: string;
+    } = {
       pathParamKey: "path",
       fileParamKey: "file",
     }
@@ -56,7 +60,7 @@ export default function initFunctions({
       const file = req.files[fileParamKey];
       const path = req.body[pathParamKey];
 
-      const fileInfo = await saveFile(file, path);
+      const fileInfo = await saveFile(file, path, options.optimisticId);
       return res.status(200).send(fileInfo);
     } catch (err) {
       throw new Error(err);

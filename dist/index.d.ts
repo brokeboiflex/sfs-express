@@ -5,6 +5,7 @@ export default function initFunctions({ publicFolder, mask, getFileById, getFile
     idToUrl: (id: import("sfs-node").sfsFileId) => string;
     urlToId: (url: string) => string;
     saveFile: (file: UploadedFile, filePath?: string, id?: import("sfs-node").sfsFileId) => Promise<import("sfs-node").sfsFile>;
+    prepareOptimisticUpload: (req: any, res: any) => Promise<any>;
     deleteFileByHash: (hash: string) => Promise<void>;
     deleteFileById: (id: string) => Promise<void>;
     deleteFile: (req: any, res: any) => Promise<any>;

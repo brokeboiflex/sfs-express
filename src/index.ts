@@ -45,6 +45,18 @@ export default function initFunctions({
     }
   };
 
+  const prepareOptimisticUpload = async (req, res) => {
+    const id = req.body.id;
+    const optimisticUrl = urlToId(id);
+    try {
+      optimisticUrls.add(optimisticUrl);
+      return res.status(200).send(optimisticUrl);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send();
+    }
+  };
+
   const uploadFile = async (
     req,
     res: Response,
@@ -69,7 +81,6 @@ export default function initFunctions({
     try {
       if (id) {
         optimisticUrl = idToUrl(id);
-        optimisticUrls.add(optimisticUrl);
       }
       const fileInfo = await saveFile(file, path, id);
       if (fileInfo && optimisticUrl) {
@@ -138,6 +149,7 @@ export default function initFunctions({
     idToUrl,
     urlToId,
     saveFile,
+    prepareOptimisticUpload,
     deleteFileByHash,
     deleteFileById,
     deleteFile,

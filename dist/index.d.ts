@@ -4,7 +4,11 @@ export default function initFunctions({ publicFolder, mask, getFileById, getFile
     getFile: (req: Request, res: Response) => Promise<void | Response<any, Record<string, any>>>;
     idToUrl: (id: import("sfs-node").sfsFileId) => string;
     urlToId: (url: string) => string;
-    saveFile: (file: UploadedFile, filePath?: string, id?: import("sfs-node").sfsFileId) => Promise<import("sfs-node").sfsFile>;
+    saveFile: (file: UploadedFile, options?: {
+        filePath?: string;
+        id?: import("sfs-node").sfsFileId;
+        additionalFields?: any;
+    }) => Promise<import("sfs-node").sfsFile>;
     prepareOptimisticUpload: (req: any, res: any) => Promise<any>;
     deleteFileByHash: (hash: string) => Promise<void>;
     deleteFileById: (id: string) => Promise<void>;
@@ -14,6 +18,7 @@ export default function initFunctions({ publicFolder, mask, getFileById, getFile
         pathParamKey: string;
         fileParamKey: string;
         optimisticIdKey: string;
+        additionalFields: any;
     }) => Promise<Response<any, Record<string, any>>>;
     uploadFiles: (req: any, res: Response, options?: {
         pathParamKey: string;

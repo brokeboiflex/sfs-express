@@ -79,16 +79,19 @@ export default function initFunctions({
       pathParamKey: string;
       fileParamKey: string;
       optimisticIdKey: string;
+      additionalData: any;
     } = {
       pathParamKey: "path",
       fileParamKey: "file",
       optimisticIdKey: "id",
+      additionalData: {},
     }
   ) => {
     if (!req.files) {
       return res.status(400).send("Request doesn't contain any files");
     }
-    const { pathParamKey, fileParamKey, optimisticIdKey } = options;
+    const { pathParamKey, fileParamKey, optimisticIdKey, additionalData } =
+      options;
     const file = req.files[fileParamKey];
     const path = req.body[pathParamKey];
     const id = req.body[optimisticIdKey];
@@ -97,7 +100,11 @@ export default function initFunctions({
       if (id) {
         optimisticUrl = idToUrl(id);
       }
-      const fileInfo = await saveFile(file, path, id);
+      const fileInfo = await saveFile(file, {
+        filePath: path,
+        id,
+        additionalData,
+      });
       if (fileInfo && optimisticUrl) {
         optimisticUrls.delete(optimisticUrl); // Delete the URL, not the id
       }

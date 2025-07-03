@@ -32,22 +32,37 @@ export default function initFunctions({
 
   const getFile = async (req: Request, res: Response) => {
     const fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+    logger &&
+      logger("SFS Express: trying to return requested file: " + fullUrl);
     if (optimisticUrls.has(fullUrl)) {
-      return res.status(425);
+      return res.status(428);
     }
     const fileId = urlToId(fullUrl);
     try {
       const { filePath, fileName } = await resolveFilePath(fileId);
+      logger &&
+        logger(
+          "SFS Express: sedning file '" +
+            fileName +
+            "' with path '" +
+            filePath +
+            "'"
+        );
+
       res.setHeader("Content-Disposition", `inline; filename="${fileName}"`);
       return res.status(200).sendFile(filePath);
     } catch (err) {
+      logger && logger("SFS Express: unable to return file" + fullUrl);
+      logger && logger(err);
+
+      console.error(err);
       return res.status(404).send();
     }
   };
 
   const prepareOptimisticUpload = async (req, res) => {
     const id = req.body.id;
-    const optimisticUrl = urlToId(id);
+    const optimisticUrl = idToUrl(id);
     try {
       optimisticUrls.add(optimisticUrl);
       return res.status(200).send(optimisticUrl);

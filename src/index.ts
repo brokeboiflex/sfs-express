@@ -31,31 +31,31 @@ export default function initFunctions({
   const optimisticUrls = new Set();
 
   const getFile = async (req: Request, res: Response) => {
-    const fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-    logger &&
-      logger("SFS Express: trying to return requested file: " + fullUrl);
-    if (optimisticUrls.has(fullUrl)) {
-      return res.status(428);
-    }
-    const fileId = urlToId(fullUrl);
+    let fullUrl;
     try {
+      const id = req.params.id;
+      fullUrl = idToUrl(id);
+      logger &&
+        logger(
+          "SFS Express: trying to return requested file: " + fullUrl,
+          "info"
+        );
+      if (optimisticUrls.has(fullUrl)) {
+        return res.status(428);
+      }
+      const fileId = urlToId(fullUrl);
       const { filePath, fileName } = await resolveFilePath(fileId);
       logger &&
         logger(
-          "SFS Express: sedning file '" +
-            fileName +
-            "' with path '" +
-            filePath +
-            "'"
+          `SFS Express: sedning file '${fileName}' with path '${filePath}'`
         );
 
       res.setHeader("Content-Disposition", `inline; filename="${fileName}"`);
       return res.status(200).sendFile(filePath);
     } catch (err) {
-      logger && logger("SFS Express: unable to return file" + fullUrl);
+      logger && logger("SFS Express: unable to return file:" + fullUrl);
       logger && logger(err);
 
-      console.error(err);
       return res.status(404).send();
     }
   };
@@ -67,7 +67,7 @@ export default function initFunctions({
       optimisticUrls.add(optimisticUrl);
       return res.status(200).send(optimisticUrl);
     } catch (err) {
-      console.error(err);
+      logger && logger(err, "error");
       return res.status(500).send();
     }
   };
@@ -103,7 +103,8 @@ export default function initFunctions({
       }
       return res.status(200).send(fileInfo);
     } catch (err) {
-      console.error(err);
+      logger && logger(err, "error");
+
       if (optimisticUrl) {
         optimisticUrls.delete(optimisticUrl); // Delete the URL, not the id
       }
@@ -142,19 +143,21 @@ export default function initFunctions({
       );
       return res.status(200).send(fileInfo);
     } catch (err) {
-      console.error(err);
+      logger && logger(err, "error");
+
       return res.status(500).send();
     }
   };
 
   const deleteFile = async (req, res) => {
     try {
-      const fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+      const id = req.params.id;
+      const fullUrl = idToUrl(id);
       const fileId = urlToId(fullUrl);
       await deleteFileById(fileId);
       return res.status(200).send("ok");
     } catch (err) {
-      console.error(err);
+      logger && logger(err, "error");
       return res.status(500).send();
     }
   };
